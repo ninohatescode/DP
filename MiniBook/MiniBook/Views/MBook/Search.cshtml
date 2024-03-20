@@ -1,0 +1,60 @@
+﻿@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_LayoutAllBook.cshtml";
+}
+
+
+@model IEnumerable<MiniBook.Models.SACH>
+@{
+    var price = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+    var user = Session["TaiKhoan"] as MiniBook.Models.KHACHHANG;
+}
+
+
+<div class="container body-page">
+
+            <h3 style="color:gray">Kết quả tìm kiếm cho "@ViewBag.TextSeatch"</h3>
+            <div class="row">
+                <!-- product -->
+
+
+                @foreach (var item in Model)
+                {
+                    <div style="padding:5px" class="col-xxl-3 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-12">
+                        <div class="card container pt-1">
+                            <a href="@Url.Action("Index/"+ item.IDSach,"Details")"><img style="width: 275px; height: 300px;object-fit:contain;" src="~/Images/@item.AnhMinhHoa" alt="Card image cap"></a>
+                            <div class="card-body" style="text-align: center">
+                                <div style="height:70px"><h6 class="card-title text">@item.TenSach</h6></div>
+                                <p class="card-text">@string.Format("{0:#,##0}", item.GiaBan) vnd</p>
+                                <a class="btn btn-outline-warning" href="@Url.Action("ThemSanPhamVaoGio","GioHang", new {IDSach=item.IDSach})">Thêm vào giỏ hàng</a>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="prod-item">
+                        <div class="card" style="width: 17.5rem;background-color: rgba(255, 174, 185,0.3)" align="center">
+                            <a href="@Url.Action("Index/"+ item.ProductID,"ProductDetail")"><img style="width: 275px; height: 300px;object-fit:contain;" src="~/Images/@item.ImageProd" alt="Card image cap"></a>
+                            <div class="card-body">
+                                <a href="@Url.Action("Index/"+ item.ProductID,"ProductDetail") " class="title-prod"> <h5 class="card-title" style="color: white; overflow: hidden;text-overflow:ellipsis; white-space: nowrap;">@item.ProductName </h5> </a>
+                                <h5 style="color: darkred;">@String.Format(price, "{0:c0}", item.Price)</h5>
+                                @if (user != null)
+                                {
+                                    <a href="@Url.Action("AddSingleProduct/"+ item.ProductID,"Cart")" class="add-to-cart-btn"><i class="ti-plus"></i></a>
+
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("Login", "User")" class="add-to-cart-btn"><i class="ti-plus"></i></a>
+
+                                }
+                                <a href="@Url.Action("Index/"+ item.ProductID,"ProductDetail")" class="see-detail-prod"><i class="ti-eye"></i></a>
+
+                            </div>
+                        </div>
+                    </div>*@
+                }
+
+
+            </div>
+
+        </div>
+
